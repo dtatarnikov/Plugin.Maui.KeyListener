@@ -3,7 +3,7 @@
 [ContentProperty(nameof(Modifiers))]
 public sealed class KeyboardModifiersMarkupExtension : IMarkupExtension
 {
-    public string Modifiers { get; set; }
+    public string Modifiers { get; set; } = string.Empty;
 
     public object ProvideValue(IServiceProvider serviceProvider)
     {

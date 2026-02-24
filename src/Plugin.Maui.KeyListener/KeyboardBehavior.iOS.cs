@@ -15,34 +15,46 @@ namespace Plugin.Maui.KeyListener
 		{
 			base.OnAttachedTo(bindable, platformView);
 
-			var page = GetParentPage(bindable);
-
-			if (page == null)
+			var kvc = FindKeyboardPageViewController(bindable, platformView);
+			if (kvc is null)
 				return;
 
-			// Register to key press events
-			if (page.Handler is not IPlatformViewHandler viewHandler ||
-				viewHandler.ViewController is not KeyboardPageViewController keyboardPageViewController)
-				return;
-
-			keyboardPageViewController.RegisterKeyboardBehavior(this);
+			kvc.RegisterKeyboardBehavior(this);
 		}
 
 		protected override void OnDetachedFrom(VisualElement bindable, UIView platformView)
 		{
 			base.OnDetachedFrom(bindable, platformView);
 
+			var kvc = FindKeyboardPageViewController(bindable, platformView);
+			if (kvc is null)
+				return;
+
+			kvc.UnregisterKeyboardBehavior(this);
+		}
+
+		/// <summary>
+		/// Finds the <see cref="KeyboardPageViewController"/> by first checking the parent page's handler,
+		/// then walking the UIViewController hierarchy as a fallback for nested navigation scenarios (e.g. Shell).
+		/// </summary>
+		static KeyboardPageViewController? FindKeyboardPageViewController(VisualElement bindable, UIView platformView)
+		{
+			// Try the parent page's handler first (fast path)
 			var page = GetParentPage(bindable);
+			if (page?.Handler is IPlatformViewHandler viewHandler &&
+				viewHandler.ViewController is KeyboardPageViewController kvc)
+				return kvc;
 
-			if (page == null)
-				return;
+			// Walk the native VC hierarchy for nested navigation (Shell, NavigationPage, etc.)
+			UIResponder? responder = platformView.NextResponder;
+			while (responder is not null)
+			{
+				if (responder is KeyboardPageViewController found)
+					return found;
+				responder = responder.NextResponder;
+			}
 
-			// Unregister from key press events
-			if (page.Handler is not IPlatformViewHandler viewHandler ||
-				viewHandler.ViewController is not KeyboardPageViewController keyboardPageViewController)
-				return;
-
-			keyboardPageViewController.UnregisterKeyboardBehavior(this);
+			return null;
 		}
 
 		static Page? GetParentPage(VisualElement element)

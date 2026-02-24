@@ -96,7 +96,7 @@ namespace Plugin.Maui.KeyListener
 					KeyChar = characters.Length == 1 ? char.ToUpperInvariant(characters[0]) : default,
 				};
 
-				foreach (var weakBehavior in _keyboardBehaviors)
+				foreach (var weakBehavior in _keyboardBehaviors.ToArray())
 				{
 					if (weakBehavior.TryGetTarget(out var target) && target is not null)
 					{

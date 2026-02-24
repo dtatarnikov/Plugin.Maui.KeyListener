@@ -8,6 +8,8 @@ namespace Plugin.Maui.KeyListener;
 
 public partial class KeyboardBehavior : PlatformBehavior<VisualElement>
 {
+	Android.Views.View? _attachedLayout;
+
 	/// <summary>
 	/// Similarly to the Apple and Windows implementations, find the outermost layout to connect the key events to.
 	/// </summary>
@@ -32,16 +34,25 @@ public partial class KeyboardBehavior : PlatformBehavior<VisualElement>
 
 		Android.Views.View? layout = GetParentLayout(platformView);
 		if (layout is null)
+		{
+			Debug.WriteLine("[KeyboardBehavior] No suitable parent LinearLayout found. Keyboard events will not be received.");
 			return;
+		}
 
+		_attachedLayout = layout;
 		layout.KeyPress += OnKeyPress;
 		layout.Focusable = true;
 		layout.FocusableInTouchMode = true;
+		layout.RequestFocus();
 	}
 
 	protected override void OnDetachedFrom(VisualElement bindable, Android.Views.View platformView)
 	{
-		platformView.KeyPress -= OnKeyPress;
+		if (_attachedLayout is not null)
+		{
+			_attachedLayout.KeyPress -= OnKeyPress;
+			_attachedLayout = null;
+		}
 
 		base.OnDetachedFrom(bindable, platformView);
 	}

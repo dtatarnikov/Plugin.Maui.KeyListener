@@ -32,7 +32,7 @@ internal class KeyboardBehaviorTriggerComparer : IEqualityComparer<KeyboardBehav
         unchecked
         {
             int hash = 17;
-            hash = hash * 23 + obj.Key.GetHashCode();
+            hash = hash * 23 + obj.PlatformKey.GetHashCode();
             hash = hash * 23 + obj.PlatformModifiers.GetHashCode();
             return hash;
         }

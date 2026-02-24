@@ -80,8 +80,8 @@ internal static partial class KeyboardKeysExtensions
 		KeyboardKeys.RightControl => UIKeyboardHidUsage.KeyboardRightControl,
 		KeyboardKeys.LeftAlt => UIKeyboardHidUsage.KeyboardLeftAlt,
 		KeyboardKeys.RightAlt => UIKeyboardHidUsage.KeyboardRightAlt,
-		KeyboardKeys.LeftCommand => UIKeyboardHidUsage.KeyboardLeftAlt,
-		KeyboardKeys.RightCommand => UIKeyboardHidUsage.KeyboardRightAlt,
+		KeyboardKeys.LeftCommand => (UIKeyboardHidUsage)0xE3, // HID Left GUI (Command)
+		KeyboardKeys.RightCommand => (UIKeyboardHidUsage)0xE7, // HID Right GUI (Command)
 		KeyboardKeys.Space => UIKeyboardHidUsage.KeyboardSpacebar,
 		KeyboardKeys.Insert => UIKeyboardHidUsage.KeyboardInsert,
 		KeyboardKeys.Delete => UIKeyboardHidUsage.KeyboardDeleteForward,
@@ -192,6 +192,8 @@ internal static partial class KeyboardKeysExtensions
 		UIKeyboardHidUsage.KeyboardRightControl => KeyboardKeys.RightControl,
 		UIKeyboardHidUsage.KeyboardLeftAlt => KeyboardKeys.LeftAlt,
 		UIKeyboardHidUsage.KeyboardRightAlt => KeyboardKeys.RightAlt,
+		(UIKeyboardHidUsage)0xE3 => KeyboardKeys.LeftCommand, // HID Left GUI (Command)
+		(UIKeyboardHidUsage)0xE7 => KeyboardKeys.RightCommand, // HID Right GUI (Command)
 		UIKeyboardHidUsage.KeyboardSpacebar => KeyboardKeys.Space,
 		UIKeyboardHidUsage.KeyboardInsert => KeyboardKeys.Insert,
 		UIKeyboardHidUsage.KeyboardDeleteForward => KeyboardKeys.Delete,
