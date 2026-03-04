@@ -35,12 +35,6 @@ Implementing KeyboardBehavior to manage navigation and interaction on Windows en
 Using KeyboardBehavior on macOS improves navigation for users who have enabled basic keyboard navigation features. However, it provides no benefits for users utilizing Full Keyboard Access mode or VoiceOver screen reader navigation. For comprehensive accessibility support on Mac (and Windows), it's recommended to implement the SemanticOrderView from the MAUI Community Toolkit alongside KeyboardBehavior.
 
 
-## API Usage
-
-`Plugin.Maui.KeyListener` provides the `Feature` class that has a single property `Property` that you can get or set.
-
-You can either use it as a static class, e.g.: `Feature.Default.Property = 1` or with dependency injection: `builder.Services.AddSingleton<IFeature>(Feature.Default);`
-
 ### Regisgtration
 
 Before you can start using `KeyboardBehavior`, you need to register to use it in your `MauiProgram`:
