@@ -2,7 +2,7 @@
 
 namespace Plugin.Maui.KeyListener;
 
-internal static partial class KeyboardKeysExtensions
+internal static class KeyboardKeysExtensions
 {
     public static Keycode ToKeycode(this KeyboardKeys key) => key switch
     {

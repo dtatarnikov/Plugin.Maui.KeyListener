@@ -1,32 +1,32 @@
-using Plugin.Maui.KeyListener;
 using Microsoft.Maui.Handlers;
 
 namespace Plugin.Maui.KeyListener;
+
 public static class MauiProgramExtensions
 {
 	public static MauiAppBuilder UseKeyListener(this MauiAppBuilder builder)
 	{
-		builder.ConfigureMauiHandlers(handlers =>
+		//builder.ConfigureMauiHandlers(handlers =>
+		//{
+#if IOS || MACCATALYST
+		PageHandler.PlatformViewFactory = (handler) =>
 		{
-			#if IOS || MACCATALYST
-				PageHandler.PlatformViewFactory = (handler) =>
-				{
-					if (handler is not PageHandler pageHandler)
-						return null;
+			if (handler is not PageHandler pageHandler)
+				return null;
 
-					if (handler.MauiContext is null)
-						return null;
+			if (handler.MauiContext is null)
+				return null;
 
-					var vc = new KeyboardPageViewController(handler.VirtualView, handler.MauiContext);
-					handler.ViewController = vc;
+			var vc = new KeyboardPageViewController(handler.VirtualView, handler.MauiContext);
+			handler.ViewController = vc;
 
-					if (vc.View?.Subviews is not { Length: > 0 } subviews)
-						return null;
+			if (vc.View?.Subviews is not { Length: > 0 } subviews)
+				return null;
 
-					return (Microsoft.Maui.Platform.ContentView)subviews[0];
-				};
-			#endif
-		});
+			return (Microsoft.Maui.Platform.ContentView)subviews[0];
+		};
+#endif
+		//});
 
 		return builder;
 	}

@@ -18,7 +18,7 @@ internal static class KeyboardModifiersExtensions
 
 	internal static VirtualKeyModifiers GetVirtualKeyModifiers()
 	{
-		VirtualKeyModifiers modifiers = VirtualKeyModifiers.None;
+		var modifiers = VirtualKeyModifiers.None;
 		if (IsKeyDown(VirtualKey.Control))
 			modifiers |= VirtualKeyModifiers.Control;
 		if (IsKeyDown(VirtualKey.Menu))
@@ -32,7 +32,7 @@ internal static class KeyboardModifiersExtensions
 
 	public static KeyboardModifiers ToKeyboardModifiers(this VirtualKeyModifiers virtualKeyModifiers)
 	{
-		KeyboardModifiers keyboardModifiers = KeyboardModifiers.None;
+		var keyboardModifiers = KeyboardModifiers.None;
 		foreach (var modifier in VirtualKeyModifierValues)
 		{
 			if (virtualKeyModifiers.HasFlag(modifier))

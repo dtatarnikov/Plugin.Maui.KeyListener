@@ -1,5 +1,4 @@
-﻿#if IOS || MACCATALYST
-using UIKit;
+﻿using UIKit;
 
 namespace Plugin.Maui.KeyListener;
 
@@ -17,7 +16,7 @@ public sealed partial class KeyboardBehaviorTrigger
 
 internal class KeyboardBehaviorTriggerComparer : IEqualityComparer<KeyboardBehaviorTrigger>
 {
-    public bool Equals(KeyboardBehaviorTrigger? x, KeyboardBehaviorTrigger? y)
+    public bool Equals(KeyboardBehaviorTrigger x, KeyboardBehaviorTrigger y)
     {
         if (x == null && y == null)
             return true;
@@ -38,4 +37,3 @@ internal class KeyboardBehaviorTriggerComparer : IEqualityComparer<KeyboardBehav
         }
     }
 }
-#endif

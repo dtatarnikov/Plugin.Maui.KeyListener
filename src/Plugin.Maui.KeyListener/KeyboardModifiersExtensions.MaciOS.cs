@@ -1,5 +1,4 @@
-﻿#if IOS || MACCATALYST
-using UIKit;
+﻿using UIKit;
 
 namespace Plugin.Maui.KeyListener;
 
@@ -16,11 +15,11 @@ internal static class KeyboardModifiersExtensions
     {
         UIKeyModifierFlags platformModifiers = 0;
 
-        foreach (KeyboardModifiers virtualModifier in VirtualModifiersValues)
+        foreach (var virtualModifier in VirtualModifiersValues)
         {
             if (virtualModifiers.HasFlag(virtualModifier))
             {
-                UIKeyModifierFlags platformModifier = ToPlatformModifier(virtualModifier);
+                var platformModifier = ToPlatformModifier(virtualModifier);
                 platformModifiers |= platformModifier;
             }
         }
@@ -32,11 +31,11 @@ internal static class KeyboardModifiersExtensions
     {
         KeyboardModifiers virtualModifiers = 0;
 
-        foreach (UIKeyModifierFlags platformModifier in UIKeyModifierFlagsValues)
+        foreach (var platformModifier in UIKeyModifierFlagsValues)
         {
             if (platformModifiers.HasFlag(platformModifier))
             {
-                KeyboardModifiers virtualModifier = ToVirtualModifier(platformModifier);
+                var virtualModifier = ToVirtualModifier(platformModifier);
                 virtualModifiers |= virtualModifier;
             }
         }
@@ -63,4 +62,3 @@ internal static class KeyboardModifiersExtensions
         _ => 0
     };
 }
-#endif

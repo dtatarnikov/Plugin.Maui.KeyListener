@@ -1,23 +1,22 @@
-﻿#if ANDROID
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Android.Views;
 using Android.Widget;
+using View = Android.Views.View;
 
 namespace Plugin.Maui.KeyListener;
 
 public partial class KeyboardBehavior : PlatformBehavior<VisualElement>
 {
-	Android.Views.View? _attachedLayout;
+	private View _attachedLayout;
 
 	/// <summary>
 	/// Similarly to the Apple and Windows implementations, find the outermost layout to connect the key events to.
 	/// </summary>
-	private static Android.Views.View? GetParentLayout(Android.Views.View platformView)
+	private static View GetParentLayout(View platformView)
 	{
-		Android.Views.View view = platformView;
-		Android.Views.View? layout = null;
-		while (view.Parent is Android.Views.View parent)
+		View view = platformView;
+		View layout = null;
+		while (view.Parent is View parent)
 		{
 			view = parent;
 			// TODO: The outermost layout is a FrameLayout, but no KeyPress events get raised for it in MAUI.
@@ -28,11 +27,11 @@ public partial class KeyboardBehavior : PlatformBehavior<VisualElement>
 		return layout;
 	}
 
-	protected override void OnAttachedTo(VisualElement bindable, Android.Views.View platformView)
+	protected override void OnAttachedTo(VisualElement bindable, View platformView)
 	{
 		base.OnAttachedTo(bindable, platformView);
 
-		Android.Views.View? layout = GetParentLayout(platformView);
+		var layout = GetParentLayout(platformView);
 		if (layout is null)
 		{
 			Debug.WriteLine("[KeyboardBehavior] No suitable parent LinearLayout found. Keyboard events will not be received.");
@@ -46,7 +45,7 @@ public partial class KeyboardBehavior : PlatformBehavior<VisualElement>
 		layout.RequestFocus();
 	}
 
-	protected override void OnDetachedFrom(VisualElement bindable, Android.Views.View platformView)
+	protected override void OnDetachedFrom(VisualElement bindable, View platformView)
 	{
 		if (_attachedLayout is not null)
 		{
@@ -57,19 +56,20 @@ public partial class KeyboardBehavior : PlatformBehavior<VisualElement>
 		base.OnDetachedFrom(bindable, platformView);
 	}
 
-	void OnKeyPress(object? sender, Android.Views.View.KeyEventArgs e)
-	{
-		if (e.Event is not KeyEvent @event)
-			return;
+	void OnKeyPress(object sender, View.KeyEventArgs e)
+    {
+        var ev = e.Event;
+        if (ev is null)
+            return;
 
 		var args = new KeyPressedEventArgs
 		{
-			Key = @event.KeyCode.ToKeyboardKeys(),
-			Modifiers = KeyboardModifiersExtensions.ToKeyboardModifiers(@event.MetaState),
-			KeyChar = char.ToUpper((char)@event.UnicodeChar)
+			Key = ev.KeyCode.ToKeyboardKeys(),
+			Modifiers = ev.MetaState.ToKeyboardModifiers(),
+			KeyChar = char.ToUpper((char)ev.UnicodeChar)
 		};
 
-		switch (@event.Action)
+		switch (ev.Action)
 		{
 			case KeyEventActions.Down:
 				RaiseKeyDown(args);
@@ -80,4 +80,3 @@ public partial class KeyboardBehavior : PlatformBehavior<VisualElement>
 		}
 	}
 }
-#endif

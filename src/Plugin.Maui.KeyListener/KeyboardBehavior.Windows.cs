@@ -1,5 +1,4 @@
-﻿#if WINDOWS
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
 
 namespace Plugin.Maui.KeyListener;
@@ -12,8 +11,8 @@ public partial class KeyboardBehavior : PlatformBehavior<VisualElement>
 
 		if (platformView.XamlRoot?.Content is FrameworkElement content)
 		{
-			content.KeyDown += OnKeyDown;
-			content.KeyUp += OnKeyUp;
+			content.PreviewKeyDown += OnKeyDown;
+			content.PreviewKeyUp += OnKeyUp;
 		}
 	}
 
@@ -21,8 +20,8 @@ public partial class KeyboardBehavior : PlatformBehavior<VisualElement>
 	{
 		if (platformView.XamlRoot?.Content is FrameworkElement content)
 		{
-			content.KeyDown -= OnKeyDown;
-			content.KeyUp -= OnKeyUp;
+			content.PreviewKeyDown -= OnKeyDown;
+			content.PreviewKeyUp -= OnKeyUp;
 		}
 
 		base.OnDetachedFrom(bindable, platformView);
@@ -44,4 +43,3 @@ public partial class KeyboardBehavior : PlatformBehavior<VisualElement>
 			e.Handled = true;
 	}
 }
-#endif

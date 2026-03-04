@@ -1,9 +1,8 @@
-﻿#if IOS || MACCATALYST
-using UIKit;
+﻿using UIKit;
 
 namespace Plugin.Maui.KeyListener;
 
-internal static partial class KeyboardKeysExtensions
+internal static class KeyboardKeysExtensions
 {
 	/// <remarks>
 	/// https://developer.apple.com/documentation/uikit/uikeyboardhidusage
@@ -229,4 +228,3 @@ internal static partial class KeyboardKeysExtensions
 		_ => KeyboardKeys.None
 	};
 }
-#endif

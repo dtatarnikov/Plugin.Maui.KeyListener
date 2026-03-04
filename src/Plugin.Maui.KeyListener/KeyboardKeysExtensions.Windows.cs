@@ -1,12 +1,10 @@
-﻿#if WINDOWS
-
-using Microsoft.UI.Xaml.Input;
+﻿using Microsoft.UI.Xaml.Input;
 using Windows.System;
 using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 namespace Plugin.Maui.KeyListener;
 
-internal static partial class KeyboardKeysExtensions
+internal static class KeyboardKeysExtensions
 {
 	/// <remarks>
 	/// https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
@@ -259,4 +257,3 @@ internal static partial class KeyboardKeysExtensions
 		};
 	}
 }
-#endif

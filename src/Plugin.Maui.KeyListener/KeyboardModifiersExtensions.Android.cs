@@ -9,7 +9,7 @@ internal static class KeyboardModifiersExtensions
     /// </summary>
     public static MetaKeyStates ToMetaKeyStates(this KeyboardModifiers modifiers)
     {
-        MetaKeyStates result = MetaKeyStates.None;
+        var result = MetaKeyStates.None;
 
         if (modifiers.HasFlag(KeyboardModifiers.Shift))
             result |= MetaKeyStates.ShiftOn;
@@ -28,7 +28,7 @@ internal static class KeyboardModifiersExtensions
     /// </summary>
     public static KeyboardModifiers ToKeyboardModifiers(this MetaKeyStates metaState)
     {
-        KeyboardModifiers result = KeyboardModifiers.None;
+        var result = KeyboardModifiers.None;
 
         if (metaState.HasFlag(MetaKeyStates.ShiftOn))
             result |= KeyboardModifiers.Shift;
