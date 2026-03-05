@@ -1,2 +1,4 @@
 MapVirtualKey
+ToUnicode
+GetKeyboardState
 VIRTUAL_KEY

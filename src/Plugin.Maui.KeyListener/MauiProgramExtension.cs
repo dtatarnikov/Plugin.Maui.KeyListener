@@ -6,12 +6,10 @@ public static class MauiProgramExtensions
 {
 	public static MauiAppBuilder UseKeyListener(this MauiAppBuilder builder)
 	{
-		//builder.ConfigureMauiHandlers(handlers =>
-		//{
 #if IOS || MACCATALYST
 		PageHandler.PlatformViewFactory = (handler) =>
 		{
-			if (handler is not PageHandler pageHandler)
+			if (handler is not PageHandler)
 				return null;
 
 			if (handler.MauiContext is null)
@@ -26,7 +24,6 @@ public static class MauiProgramExtensions
 			return (Microsoft.Maui.Platform.ContentView)subviews[0];
 		};
 #endif
-		//});
 
 		return builder;
 	}

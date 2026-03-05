@@ -56,17 +56,20 @@ public partial class KeyboardBehavior : PlatformBehavior<VisualElement>
 		base.OnDetachedFrom(bindable, platformView);
 	}
 
-	void OnKeyPress(object sender, View.KeyEventArgs e)
+    private void OnKeyPress(object sender, View.KeyEventArgs e)
     {
         var ev = e.Event;
         if (ev is null)
             return;
 
+        var chars = ev.UnicodeChar;
+        var isDead = (chars & KeyCharacterMap.CombiningAccent) != 0;
 		var args = new KeyPressedEventArgs
 		{
 			Key = ev.KeyCode.ToKeyboardKeys(),
-			Modifiers = ev.MetaState.ToKeyboardModifiers(),
-			KeyChar = char.ToUpper((char)ev.UnicodeChar)
+			Modifiers = ev.Modifiers.ToKeyboardModifiers(),
+			States = ev.MetaState.ToKeyboardStates(), //KeyEvent.NormalizeMetaState(ev.MetaState)
+			KeyChar = char.ConvertFromUtf32(isDead ? (ev.UnicodeChar & KeyCharacterMap.CombiningAccentMask) : ev.UnicodeChar) //char.ToUpper((char)ev.UnicodeChar)
 		};
 
 		switch (ev.Action)

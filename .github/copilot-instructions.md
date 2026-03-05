@@ -38,7 +38,7 @@ Consumers call `.UseKeyListener()` in their `MauiProgram.cs`. On iOS/Mac this co
 
 ### XAML support
 
-`KeyboardBehaviorTrigger` pairs with `KeyboardBehavior` for declarative key matching. `KeyboardKeysMarkupExtension` and `KeyboardModifiersMarkupExtension` provide XAML-friendly enum parsing.
+`KeyboardKeysMarkupExtension` and `KeyboardModifiersMarkupExtension` provide XAML-friendly enum parsing.
 
 ## Conventions
 

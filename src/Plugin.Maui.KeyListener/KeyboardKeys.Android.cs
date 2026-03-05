@@ -2,7 +2,7 @@
 
 namespace Plugin.Maui.KeyListener;
 
-internal static class KeyboardKeysExtensions
+internal static partial class KeyboardKeysExtensions
 {
     public static Keycode ToKeycode(this KeyboardKeys key) => key switch
     {
@@ -225,4 +225,11 @@ internal static class KeyboardKeysExtensions
         Keycode.Menu => KeyboardKeys.Application,
         _ => KeyboardKeys.None
     };
+    
+    internal static bool IsModifierKey(this Keycode key) => key is
+        Keycode.ShiftLeft or Keycode.ShiftRight or
+        Keycode.CtrlLeft or Keycode.CtrlRight or
+        Keycode.AltLeft or Keycode.AltRight or
+        Keycode.MetaLeft or Keycode.MetaRight or
+        Keycode.CapsLock;
 }

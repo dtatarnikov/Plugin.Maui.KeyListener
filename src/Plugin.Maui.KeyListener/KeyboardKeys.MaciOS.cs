@@ -2,7 +2,7 @@
 
 namespace Plugin.Maui.KeyListener;
 
-internal static class KeyboardKeysExtensions
+internal static partial class KeyboardKeysExtensions
 {
 	/// <remarks>
 	/// https://developer.apple.com/documentation/uikit/uikeyboardhidusage
@@ -227,4 +227,11 @@ internal static class KeyboardKeysExtensions
 		UIKeyboardHidUsage.KeyboardApplication => KeyboardKeys.Application,
 		_ => KeyboardKeys.None
 	};
+	
+    internal static bool IsModifierKey(this UIKeyboardHidUsage key) => key is
+        UIKeyboardHidUsage.KeyboardLeftShift or UIKeyboardHidUsage.KeyboardRightShift or
+        UIKeyboardHidUsage.KeyboardLeftControl or UIKeyboardHidUsage.KeyboardRightControl or
+        UIKeyboardHidUsage.KeyboardLeftAlt or UIKeyboardHidUsage.KeyboardRightAlt or
+        (UIKeyboardHidUsage)0xE3 or (UIKeyboardHidUsage)0xE7 or //left/right command key
+        UIKeyboardHidUsage.KeyboardCapsLock or UIKeyboardHidUsage.KeyboardLockingCapsLock;
 }

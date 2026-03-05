@@ -110,3 +110,8 @@ public enum KeyboardKeys
     Slash,
     Application,
 }
+
+internal static partial class KeyboardKeysExtensions
+{
+
+}

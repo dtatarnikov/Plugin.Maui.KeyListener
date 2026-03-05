@@ -4,8 +4,13 @@
 public enum KeyboardModifiers
 {
     None = 0,
-    Shift = 2,
-    Command = 4,
-    Control = 8,
-    Alt = 16
+    Shift = 1,
+    Command = 2,
+    Control = 4,
+    Alt = 8
+}
+
+public static partial class KeyboardModifiersExtensions
+{
+
 }
